@@ -31,18 +31,29 @@ function Notify() {
 
   useEffect(() => {
     const fetchAddresses = async () => {
-      const addresses = [];
-      for (const notification of notifications) {
-        const { address, streetViewUrl } = await getAddressFromCoords(
-          notification.latitud,
-          notification.longitud
-        );
-        addresses.push({ address, streetViewUrl });
+      try {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          console.error('Permission to access location was denied');
+          return;
+        }
+  
+        const addresses = [];
+        for (const notification of notifications) {
+          const { address, streetViewUrl } = await getAddressFromCoords(
+            notification.latitud,
+            notification.longitud
+          );
+          addresses.push({ address, streetViewUrl });
+        }
+        setAddresses(addresses);
+      } catch (error) {
+        console.error("Error obtaining addresses:", error);
       }
-      setAddresses(addresses);
     };
     fetchAddresses();
   }, [notifications]);
+  
 
   const getAddressFromCoords = async (latitudeStr, longitudeStr) => {
     try {

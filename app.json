@@ -1,12 +1,12 @@
 {
   "expo": {
     "name": "FireNotify",
-    "slug": "FireAlarm",
+    "slug": "FireNotify",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
-    "scheme": "FireAlarm",
+    "scheme": "FireNotify",
     "plugins": [
       [
         "expo-notifications",
@@ -33,7 +33,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#212834"
+      "backgroundColor": "#073a3f"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -44,10 +44,14 @@
     },
     "android": {
       "package": "com.jhair.dizzgo",
-      "permissions": ["LOCATION", "NOTIFICATIONS"],
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "NOTIFICATIONS"
+      ],      
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#212834"
+        "backgroundColor": "#073a3f"
       },
       "config": {
         "googleSignIn": {
