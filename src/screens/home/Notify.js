@@ -68,17 +68,13 @@ function Notify() {
       }
       address += `${region}, ${country}`;
 
-      const streetViewUrl = `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${latitude},${longitude}&fov=90&heading=235&pitch=10&key=TU_API_KEY`;
-
       return {
         address,
-        streetViewUrl: street ? streetViewUrl : null,
       };
     } catch (error) {
       console.error("Error obtaining address:", error);
       return {
         address: "Dirección no disponible",
-        streetViewUrl: null,
       };
     }
   };
