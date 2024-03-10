@@ -18,7 +18,7 @@ const Load = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.navigate("Home");
-    }, 2000);
+    }, 4000);
 
     return () => clearTimeout(timer);
   }, [navigation]);

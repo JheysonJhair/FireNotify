@@ -23,7 +23,7 @@ export default function Home() {
       <View style={styles.header}>
         <Text style={styles.title}>Fuego</Text>
       </View>
-      <MapView
+      {/*<MapView
         style={styles.map}
         initialRegion={{
           latitude: -13.6342484016986,
@@ -45,7 +45,7 @@ export default function Home() {
               image={require("../../assets/fuego.png")}
             />
           ))}
-      </MapView>
+            </MapView>*/}
 
       <View style={styles.buttonContainer}>
         <Button
