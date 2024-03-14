@@ -8,13 +8,13 @@ const Button = ({ onPress, title, disabled }) => {
     <TouchableOpacity
       style={[
         styles.button,
-        { backgroundColor: disabled ? "#aaaaaa" : "#073a3f" },
+        { backgroundColor: disabled ? "#aaaaaa" : "#1f5187" },
       ]}
       onPress={onPress}
       disabled={disabled}
     >
       <LinearGradient
-        colors={disabled ? ["#073a3f", "#073a3f"] : ["#073a3f", "#073a3f"]}
+        colors={disabled ? ["#1f5187", "#1f5187"] : ["#1f5187", "#1f5187"]}
         style={styles.linearGradient}
       >
         <View style={styles.contentContainer}>

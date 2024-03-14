@@ -24,7 +24,7 @@ export default function Routes() {
         options={{
           headerShown: true,
           headerStyle: {
-            backgroundColor: "#073a3f",
+            backgroundColor: "#002854",
           },
           headerTitleStyle: {
             color: "#fff",

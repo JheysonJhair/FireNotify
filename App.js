@@ -30,7 +30,7 @@ export default function App() {
   useEffect(() => {
     async function changeNavigationBarColor() {
       try {
-        await NavigationBar.setBackgroundColorAsync("#FFFFFF");
+        await NavigationBar.setBackgroundColorAsync("#002854");
       } catch (error) {
         console.error(
           "Error cambiando el color de la barra de navegación:",

@@ -17,19 +17,19 @@ export default function Home() {
 
     fetchData();
   }, []);
-  
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Fuego</Text>
       </View>
-      {/*<MapView
+      <MapView
         style={styles.map}
         initialRegion={{
-          latitude: -13.6342484016986,
-          longitude: -72.89653607049,
-          latitudeDelta: 0.09,
-          longitudeDelta: 0.04,
+          latitude: -13.6394,
+          longitude: -72.8814,
+          latitudeDelta: 0.02,
+          longitudeDelta: 0.02,
         }}
       >
         {fireLocations.length > 0 &&
@@ -45,7 +45,7 @@ export default function Home() {
               image={require("../../assets/fuego.png")}
             />
           ))}
-            </MapView>*/}
+      </MapView>
 
       <View style={styles.buttonContainer}>
         <Button
@@ -59,7 +59,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F4F5EF",
+    backgroundColor: "002854",
   },
   map: {
     flex: 1,
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     justifyContent: "center",
     bottom: 20,
-    left: 8,
+    right: 8,
     zIndex: 1,
   },
 
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 12,
-    backgroundColor: "#073a3f",
+    backgroundColor: "#002854",
     width: "100%",
   },
   title: {

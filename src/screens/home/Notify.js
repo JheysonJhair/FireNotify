@@ -11,19 +11,23 @@ import Info from "../../components/information/Info";
 import Notification from "../../components/information/Notification";
 import { fetchData } from "../../api/apiFire";
 import * as Location from "expo-location";
+import LoadingIndicator from "../../components/modal/LoadingIndicator";
 
 function Notify() {
   const [selectedTab, setSelectedTab] = useState("Todos");
   const [notifications, setNotifications] = useState([]);
   const [addresses, setAddresses] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
       try {
         const data = await fetchData();
         setNotifications(data);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setIsLoading(false);
       }
     };
     getData();
@@ -33,66 +37,15 @@ function Notify() {
     const fetchAddresses = async () => {
       try {
         const { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted') {
-          console.error('Permission to access location was denied');
+        if (status !== "granted") {
+          console.error("Permission to access location was denied");
           return;
         }
-  
-        const addresses = [];
-        for (const notification of notifications) {
-          const { address, streetViewUrl } = await getAddressFromCoords(
-            notification.latitud,
-            notification.longitud
-          );
-          addresses.push({ address, streetViewUrl });
-        }
-        setAddresses(addresses);
       } catch (error) {
         console.error("Error obtaining addresses:", error);
       }
     };
-    fetchAddresses();
   }, [notifications]);
-  
-
-  const getAddressFromCoords = async (latitudeStr, longitudeStr) => {
-    try {
-      const latitude = parseFloat(latitudeStr);
-      const longitude = parseFloat(longitudeStr);
-
-      if (isNaN(latitude) || isNaN(longitude)) {
-        throw new Error("Invalid coordinates");
-      }
-
-      const location = await Location.reverseGeocodeAsync({
-        latitude,
-        longitude,
-      });
-      const { street, city, region, country } = location[0];
-
-      let address = "";
-      if (street) {
-        address += `${street}, `;
-      }
-      if (city) {
-        address += `${city}, `;
-      }
-      address += `${region}, ${country}`;
-
-      const streetViewUrl = `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${latitude},${longitude}&fov=90&heading=235&pitch=10&key=TU_API_KEY`;
-
-      return {
-        address,
-        streetViewUrl: street ? streetViewUrl : null,
-      };
-    } catch (error) {
-      console.error("Error obtaining address:", error);
-      return {
-        address: "Dirección no disponible",
-        streetViewUrl: null,
-      };
-    }
-  };
 
   const getFireImage = (temperature) => {
     if (temperature > 60) {
@@ -146,39 +99,27 @@ function Notify() {
             <Text style={styles.tabText}>Recientes</Text>
           </TouchableOpacity>
         </View>
-        {selectedTab === "Todos" ? (
-          <ScrollView>
-            <View>
-            {notifications.map((notification, index) => (
-
-            <Notification
-                key={index}
-                imageSource={
-                  addresses[index]?.streetViewUrl
-                    ? { uri: addresses[index].streetViewUrl }
-                    : getFireImage(notification.temperature)
-                }
-                location={addresses[index]?.address}
-                date={formatDate(notification.date)}
-              />
-              ))}
-            </View>
-          </ScrollView>
+        {isLoading ? ( 
+          <LoadingIndicator />
         ) : (
           <ScrollView>
             <View>
-            {notifications.map((notification, index) => (
-            <Notification
-                key={index}
-                imageSource={
-                  addresses[index]?.streetViewUrl
-                    ? { uri: addresses[index].streetViewUrl }
-                    : getFireImage(notification.temperature)
-                }
-                location={addresses[index]?.address}
-                date={formatDate(notification.date)}
-              />
-              ))}
+              {selectedTab === "Todos" ? (
+                notifications.map((notification, index) => (
+                  <Notification
+                    key={index}
+                    imageSource={
+                      addresses[index]?.streetViewUrl
+                        ? { uri: addresses[index].streetViewUrl }
+                        : getFireImage(notification.temperature)
+                    }
+                    location={notification.latitud + notification.longitud}
+                    date={formatDate(notification.date)}
+                  />
+                ))
+              ) : (
+                <Notification />
+              )}
             </View>
           </ScrollView>
         )}

@@ -35,7 +35,7 @@ const Load = () => {
           style={styles.logo}
         />
         <Animatable.Text animation="flipInX" style={styles.containerLogoText}>
-          FIRENOTIFY
+          NotiFire
         </Animatable.Text>
       </View>
     </View>
@@ -45,7 +45,7 @@ const Load = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#073a3f",
+    backgroundColor: "#002854",
     paddingBottom: 80,
   },
   containerLogo: {
@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_800ExtraBold",
   },
   logo: {
-    width: 115, 
-    height: 110, 
+    width: 120, 
+    height: 120, 
   },
 });
 
