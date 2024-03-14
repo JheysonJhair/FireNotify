@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: "#ccc", 
+    borderBottomColor: "#ccc",
   },
   image: {
     width: 50,

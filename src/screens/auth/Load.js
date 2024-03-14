@@ -18,7 +18,7 @@ const Load = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.navigate("Home");
-    }, 4000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, [navigation]);
@@ -30,10 +30,7 @@ const Load = () => {
   return (
     <View style={styles.container}>
       <View style={styles.containerLogo}>
-        <Image
-          source={require("../../assets/logo.png")}
-          style={styles.logo}
-        />
+        <Image source={require("../../assets/logo.png")} style={styles.logo} />
         <Animatable.Text animation="flipInX" style={styles.containerLogoText}>
           NotiFire
         </Animatable.Text>
@@ -45,7 +42,7 @@ const Load = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#002854",
+    backgroundColor: "#0a213a",
     paddingBottom: 80,
   },
   containerLogo: {
@@ -59,8 +56,8 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_800ExtraBold",
   },
   logo: {
-    width: 120, 
-    height: 120, 
+    width: 120,
+    height: 120,
   },
 });
 

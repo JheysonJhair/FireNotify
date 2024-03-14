@@ -12,6 +12,7 @@ import Notification from "../../components/information/Notification";
 import { fetchData } from "../../api/apiFire";
 import * as Location from "expo-location";
 import LoadingIndicator from "../../components/modal/LoadingIndicator";
+import * as NavigationBar from "expo-navigation-bar";
 
 function Notify() {
   const [selectedTab, setSelectedTab] = useState("Todos");
@@ -47,6 +48,21 @@ function Notify() {
     };
   }, [notifications]);
 
+  useEffect(() => {
+    async function changeNavigationBarColor() {
+      try {
+        await NavigationBar.setBackgroundColorAsync("#002854");
+      } catch (error) {
+        console.error(
+          "Error cambiando el color de la barra de navegación:",
+          error
+        );
+      }
+    }
+
+    changeNavigationBarColor();
+  }, []);
+  
   const getFireImage = (temperature) => {
     if (temperature > 60) {
       return require("../../assets/fire/2.jpg");
@@ -99,7 +115,7 @@ function Notify() {
             <Text style={styles.tabText}>Recientes</Text>
           </TouchableOpacity>
         </View>
-        {isLoading ? ( 
+        {isLoading ? (
           <LoadingIndicator />
         ) : (
           <ScrollView>

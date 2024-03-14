@@ -4,6 +4,7 @@ import Button from "../../components/forms/Button";
 import MapView, { Marker } from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 import { fetchFireLocations } from "../../api/apiFire";
+import * as NavigationBar from "expo-navigation-bar";
 
 export default function Home() {
   const [fireLocations, setFireLocations] = useState([]);
@@ -18,6 +19,21 @@ export default function Home() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    async function changeNavigationBarColor() {
+      try {
+        await NavigationBar.setBackgroundColorAsync("#002854");
+      } catch (error) {
+        console.error(
+          "Error cambiando el color de la barra de navegación:",
+          error
+        );
+      }
+    }
+
+    changeNavigationBarColor();
+  }, []);
+  
   return (
     <View style={styles.container}>
       <View style={styles.header}>
