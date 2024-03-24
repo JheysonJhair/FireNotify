@@ -3,28 +3,10 @@ import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import * as NavigationBar from "expo-navigation-bar";
 import * as TaskManager from 'expo-task-manager'; 
+import * as Notifications from 'expo-notifications';
 
 import Routes from "./src/routes";
 import "@expo-google-fonts/montserrat";
-
-import * as BackgroundFetch from 'expo-background-fetch';
-import { fetchFireLocations2 } from "./src/api/apiFire";
-import { schedulePushNotification } from "./src/hooks/NotificationService";
-
-TaskManager.defineTask('background-fetch', async () => {
-  try {
-    const response = await fetchFireLocations2();
-    if (response === true) {
-      schedulePushNotification("Probando notificacion", "xsdd");
-    }
-    return BackgroundFetch.Result.NewData;
-  } catch (error) {
-    console.error('Error en la tarea en segundo plano:', error);
-    return BackgroundFetch.Result.Failed;
-  }
-});
-
-BackgroundFetch.setMinimumIntervalAsync(10); 
 
 export default function App() {
   useEffect(() => {
@@ -40,6 +22,18 @@ export default function App() {
     }
 
     changeNavigationBarColor();
+  }, []);
+
+  useEffect(() => {
+    Notifications.requestPermissionsAsync().then((status) => {
+      if (status.granted) {
+        Notifications.getExpoPushTokenAsync().then((token) => {
+          console.log(token.data);
+        });
+      } else {
+        console.log('Permiso para notificaciones no otorgado');
+      }
+    });
   }, []);
 
   return (
