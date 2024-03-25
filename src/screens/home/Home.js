@@ -15,8 +15,11 @@ export default function Home() {
       const locations = await fetchFireLocations();
       setFireLocations(locations);
     };
-
+    
     fetchData();
+
+    const intervalId = setInterval(fetchData, 1000);
+    return () => clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
